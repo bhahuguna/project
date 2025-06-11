@@ -1,0 +1,131 @@
+body{
+      font-family: "Plus Jakarta Sans", sans-serif !important;
+      /* font-optical-sizing: auto; */
+      /* font-weight: <weight>;
+      font-style: normal; */
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      padding: 3rem !important;
+      padding-top: 0rem !important;
+      padding-bottom: 0rem !important;
+}
+
+.container{
+   flex: 1;
+}
+
+.navbar{
+   height:5rem;
+   background-color: white;
+}
+
+.fa-compass{
+   color: #fe424d;
+   font-size: 2rem;
+}
+.nav-link{
+  color: #222222 !important; 
+}
+.f-info-links a{
+text-decoration: none;
+color: #222222;
+}
+
+.f-info-links a:hover{
+   text-decoration: underline;
+   color: #222222;
+}
+.f-info-socials,
+   .f-info-links,.f-info-brand{
+   display: flex;
+   align-items:center;
+   width: 100%;
+   justify-content: center;
+}
+/* .f-info-socials{
+   width: 100%;
+   font-size: 1.3rem;
+} */
+.f-info-socials i{
+   font-size: 1.2rem;
+  margin-right: 1rem;
+}
+.f-info{
+   text-align: center;
+   display: flex;
+   background-color: #ebebeb;
+   height: 8rem;
+   flex-wrap: wrap;
+   justify-content: center;
+   align-items: space-evenly;
+}
+
+.listing-card{
+   border: none !important;
+   margin-bottom:2rem;
+}
+
+.card-img-top{
+   border-radius: 0.5rem;
+   width: 100%;
+   object-fit: cover !important;
+}
+
+.card-body{
+   padding: 0 !important;
+}
+
+.card-text{
+   font-weight:400 !important;
+}
+
+.listing-link{
+   text-decoration: none;
+}
+
+.card-img-overlay{
+opacity: 0;
+}
+.card-img-overlay:hover{
+   opacity: 0.2;
+   background-color: white;
+}
+
+.add-btn{
+   background-color: #fe424d !important;
+   border: none !important;
+}
+
+.edit-btn{
+   background-color: #fe424d !important;
+   border: none !important;
+}
+
+
+/*Show page*/
+.show-img{
+   height:40vh;
+   border-radius: 10px;
+   width: 20rem;
+}
+
+.btns{
+   display: flex;
+}
+body{
+   background-color: black;
+}
+
+
+
+#map {
+  height: 400px;
+width: 80vh;
+
+}
+
+/* #filters {
+    display: flex;
+    flex-wrap: wrap;
+} */
