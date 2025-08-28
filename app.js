@@ -30,26 +30,31 @@ const reviewsRouter=require("./routes/review.js");
 // Database URL with fallbacks for different environments
 const dburl = process.env.DATABASE_URL ||
               process.env.ATLASDB_URL ||
-              process.env.MONGODB_URI ||
-              "mongodb://127.0.0.1:27017/majorproject";
+              process.env.MONGODB_URI;
 
-console.log("Attempting to connect to database...");
+console.log("Environment check:");
+console.log("DATABASE_URL:", process.env.DATABASE_URL ? "Set" : "Not set");
+console.log("ATLASDB_URL:", process.env.ATLASDB_URL ? "Set" : "Not set");
+console.log("MONGODB_URI:", process.env.MONGODB_URI ? "Set" : "Not set");
 
-main()
-.then(()=>{
-console.log("connected to db successfully");
-})
-.catch(err=>{
-    console.log("Database connection error:", err.message);
-    console.log("Please check your database configuration");
-    // Don't exit the process, let it continue for debugging
-})
+if (!dburl) {
+    console.log("⚠️  No database URL found in environment variables");
+    console.log("Please set one of: DATABASE_URL, ATLASDB_URL, or MONGODB_URI");
+    console.log("App will continue running but database features won't work");
+} else {
+    console.log("Attempting to connect to database...");
+    main()
+    .then(()=>{
+        console.log("✅ Connected to database successfully");
+    })
+    .catch(err=>{
+        console.log("❌ Database connection error:", err.message);
+        console.log("App will continue running but database features won't work");
+    });
+}
 
 async function main(){
-   await mongoose.connect(dburl, {
-       useNewUrlParser: true,
-       useUnifiedTopology: true,
-   });
+   await mongoose.connect(dburl);
 }
 
 app.set("view engine","ejs");
@@ -59,14 +64,21 @@ app.use(methodoverride("_method"))
 app.engine('ejs',ejsMate)
 app.use(express.static(path.join(__dirname,"/public")))
 
-const store=MongoStore.create({
-    mongoUrl:dburl,
-    crypto:{
-            secret:process.env.SECRET || "fallback-secret-key",
-    },
-    touchAfter:24*3600,
-
-})
+// Create session store - use memory store if no database URL
+let store;
+if (dburl) {
+    store = MongoStore.create({
+        mongoUrl: dburl,
+        crypto: {
+            secret: process.env.SECRET || "fallback-secret-key",
+        },
+        touchAfter: 24*3600,
+    });
+} else {
+    // Use memory store as fallback (not recommended for production)
+    console.log("Using memory store for sessions (not recommended for production)");
+    store = new session.MemoryStore();
+}
 
 store.on("error",()=>{
     console.log("Error in Mongo Store",err);
