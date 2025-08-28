@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: majorproject-maps
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: ATLASDB_URL
+        fromDatabase:
+          name: majorproject-db
+          property: connectionString
+      - key: SECRET
+        generateValue: true
+      - key: CLOUD_NAME
+        sync: false
+      - key: CLOUD_API_KEY
+        sync: false
+      - key: CLOUD_API_SECRET
+        sync: false
+
+databases:
+  - name: majorproject-db
+    plan: free
+    databaseName: majorproject
+    user: admin
