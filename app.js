@@ -27,7 +27,7 @@ const userRouter=require("./routes/user.js");
 const listingsRouter=require("./routes/listing.js");
 const reviewsRouter=require("./routes/review.js");
 
-const dburl=process.env.ATLASDB_URL;
+const dburl=process.env.ATLASDB_URL || "mongodb://127.0.0.1:27017/majorproject";
 // console.log(dburl);
 
 main()

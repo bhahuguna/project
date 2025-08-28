@@ -36,13 +36,35 @@
       <div>
         <label for="location" class="form-label">Location</label>
         <input name="location" value="<%=listing.location%>" type="text" class="form-control" required>
-        <div class="invalid-feedback">Please enter location name</div>   
+        <div class="invalid-feedback">Please enter location name</div>
       </div>
 
-        
-    
+      <!-- Map Section -->
+      <div class="mb-3 mt-4">
+        <h5>Current Location</h5>
+        <div id="edit-map" style="height: 300px; width: 100%;"></div>
+        <small class="text-muted">This shows the current location of your listing</small>
+      </div>
+
+
         <button class="btn btn-dark edit-btn mt-3">edit</button>
             </form>
           </div>
           </div>
-  
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- Leaflet JavaScript -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Map JavaScript -->
+  <script src="/js/map.js"></script>
+  <script>
+        // Initialize map when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const coordinates = <%- JSON.stringify(listing.geometry.coordinates) %>;
+            const title = "<%=listing.title%>";
+            initEditMap(coordinates, title);
+        });
+  </script>

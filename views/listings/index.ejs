@@ -133,8 +133,36 @@ opacity: 0.8;
             </a>
               <%}%>
     </div>
- 
 
+    <!-- Map Section -->
+    <div class="container mt-5">
+        <h3>All Listings on Map</h3>
+        <div id="cluster-map" style="height: 500px; width: 100%;"></div>
+    </div>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Leaflet MarkerCluster CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Leaflet MarkerCluster JavaScript -->
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+
+    <!-- Map JavaScript -->
+    <script src="/js/map.js"></script>
+    <script>
+        // Initialize cluster map when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const listings = <%- JSON.stringify(allListings) %>;
+            initClusterMap(listings);
+        });
+    </script>
+    </script>
     <script>
       let taxSwitch=document.getElementById("switchCheckDefault")
       taxSwitch.addEventListener("click",()=>{

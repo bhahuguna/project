@@ -7,7 +7,7 @@
         <div class="card col-5 offset-3 listing-card" >
             <img src="<%=listing.image.url%>" class="card-img-top show-img" alt="listing_image">
             <div class="card-body">
-<p class="card-text"><i>owned-by :<%=listing.owner.username%></i></p>
+<p class="card-text"><i>owned-by: <%=listing.owner && listing.owner.username ? listing.owner.username : 'Anonymous'%></i></p>
 <br>
                 <p class="card-text"><%=listing.description%></p>
                  <p class="card-text">
@@ -22,7 +22,7 @@
             </p>
             </div>
           </div>
-          <%if(currUser && listing.owner._id.equals(currUser._id)){%>
+          <%if(currUser && listing.owner && listing.owner._id && listing.owner._id.equals(currUser._id)){%>
           <div class="btns offset-3">
             <form method="get" action="/listings/<%=listing._id%>/edit">
                 <button class="btn btn-dark offset-1 edit-btn">edit</button>
@@ -96,11 +96,27 @@
           <%}%>
             <div class="col-8 offset-3 mb-3">
               <h3>Where you'll be</h3>
-<div id="map">
-  
-</div>
+<div id="map" style="height: 400px; width: 100%;"></div>
             </div>
           </div>
 </div>
-  <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
-        ({key: "AIzaSyB3gN85R_gjkklCKQbYDnamg7v3Wg_NmuQ", v: "weekly"});</script>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- Leaflet JavaScript -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Map JavaScript -->
+  <script src="/js/map.js"></script>
+  <script>
+        // Initialize map when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            <% if (listing.geometry && listing.geometry.coordinates) { %>
+                const coordinates = <%- JSON.stringify(listing.geometry.coordinates) %>;
+                const title = "<%=listing.title%>";
+                initMap(coordinates, title);
+            <% } else { %>
+                document.getElementById("map").innerHTML = '<p>Location coordinates not available for this listing. The listing may have been created before the maps feature was added.</p>';
+            <% } %>
+        });
+  </script>

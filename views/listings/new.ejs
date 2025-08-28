@@ -32,13 +32,51 @@
 
 <div class="mb-3">
     <label for="location" class="form-label">location</label>
-    <input name="listing[location]" placeholder="enter location" type="text" class="form-control" required>
-    <div class="invalid-feedback">Please enter location name</div>   
+    <input name="listing[location]" placeholder="enter location" type="text" class="form-control" required id="location-input">
+    <div class="invalid-feedback">Please enter location name</div>
 </div>
+
+<!-- Map Preview Section -->
+<div class="mb-3">
+    <h5>Location Preview</h5>
+    <div id="new-map" style="height: 300px; width: 100%;"></div>
+    <small class="text-muted">Enter location and country above to see a preview on the map</small>
+</div>
+
 <br>
     <button class="btn btn-dark add-btn">Add</button>
     </form>
 </div>
 </div>
 
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
+<!-- Leaflet JavaScript -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- Map JavaScript -->
+<script src="/js/map.js"></script>
+<script>
+    // Initialize map when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        initNewListingMap();
+
+        // Add event listeners for location preview
+        const locationInput = document.getElementById('location-input');
+        const countryInput = document.querySelector('input[name="listing[country]"]');
+
+        function updateMapPreview() {
+            const location = locationInput.value.trim();
+            const country = countryInput.value.trim();
+
+            if (location && country) {
+                // You can add geocoding here if needed, for now just show a default map
+                console.log('Location preview for:', location + ', ' + country);
+            }
+        }
+
+        locationInput.addEventListener('blur', updateMapPreview);
+        countryInput.addEventListener('blur', updateMapPreview);
+    });
+</script>
