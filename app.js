@@ -27,19 +27,29 @@ const userRouter=require("./routes/user.js");
 const listingsRouter=require("./routes/listing.js");
 const reviewsRouter=require("./routes/review.js");
 
-const dburl=process.env.ATLASDB_URL || "mongodb://127.0.0.1:27017/majorproject";
-// console.log(dburl);
+// Database URL with fallbacks for different environments
+const dburl = process.env.DATABASE_URL ||
+              process.env.ATLASDB_URL ||
+              process.env.MONGODB_URI ||
+              "mongodb://127.0.0.1:27017/majorproject";
+
+console.log("Attempting to connect to database...");
 
 main()
 .then(()=>{
-console.log("connected to db");
+console.log("connected to db successfully");
 })
 .catch(err=>{
-    console.log(err);
+    console.log("Database connection error:", err.message);
+    console.log("Please check your database configuration");
+    // Don't exit the process, let it continue for debugging
 })
 
 async function main(){
-   await mongoose.connect(dburl);
+   await mongoose.connect(dburl, {
+       useNewUrlParser: true,
+       useUnifiedTopology: true,
+   });
 }
 
 app.set("view engine","ejs");
@@ -52,7 +62,7 @@ app.use(express.static(path.join(__dirname,"/public")))
 const store=MongoStore.create({
     mongoUrl:dburl,
     crypto:{
-            secret:process.env.SECRET,
+            secret:process.env.SECRET || "fallback-secret-key",
     },
     touchAfter:24*3600,
 
@@ -64,7 +74,7 @@ store.on("error",()=>{
 
 const sessionOptions={
     store,
-    secret:process.env.SECRET,
+    secret:process.env.SECRET || "fallback-secret-key",
     resave:false,
     saveUninitialized:true,
     cookie :{
