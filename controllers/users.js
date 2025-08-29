@@ -1,5 +1,8 @@
 const user=require("../models/user")
 
+module.exports.home=(req,res)=>{
+    res.render("home.ejs");
+}
 
 module.exports.renderSignupForm=(req,res)=>{
     res.render("users/signup.ejs")

@@ -1,0 +1,271 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  .hero-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+  }
+  
+  .hero-title {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+  
+  .search-box {
+    background: white;
+    border-radius: 50px;
+    padding: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .feature-card {
+    text-align: center;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    height: 100%;
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .feature-icon {
+    font-size: 3rem;
+    color: #667eea;
+    margin-bottom: 1rem;
+  }
+  
+  .stats-section {
+    background: #f8f9fa;
+    padding: 60px 0;
+  }
+  
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #667eea;
+  }
+  
+  .cta-section {
+    background: linear-gradient(45deg, #764ba2 0%, #667eea 100%);
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+  }
+</style>
+
+<!-- Hero Section -->
+<div class="hero-section">
+  <div class="container">
+    <h1 class="hero-title">Find Your Perfect Stay</h1>
+    <p class="hero-subtitle">Discover amazing places to stay around the world with interactive maps</p>
+    
+    <div class="search-box">
+      <div class="row g-0 align-items-center">
+        <div class="col-md-8">
+          <input type="text" class="form-control border-0" placeholder="Where do you want to go?" style="font-size: 1.1rem;">
+        </div>
+        <div class="col-md-4">
+          <a href="/listings" class="btn btn-primary w-100" style="border-radius: 50px; font-size: 1.1rem;">
+            <i class="fas fa-search me-2"></i>Explore
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Features Section -->
+<div class="container my-5">
+  <div class="row text-center mb-5">
+    <div class="col-12">
+      <h2 class="display-4 mb-3">Why Choose Our Platform?</h2>
+      <p class="lead text-muted">Experience the best in travel accommodation with our unique features</p>
+    </div>
+  </div>
+  
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-map-marked-alt"></i>
+        </div>
+        <h4>Interactive Maps</h4>
+        <p class="text-muted">Explore locations with detailed interactive maps. See exactly where you'll be staying and discover nearby attractions.</p>
+      </div>
+    </div>
+    
+    <div class="col-md-4">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h4>Verified Listings</h4>
+        <p class="text-muted">All our properties are verified and reviewed by real guests. Book with confidence knowing you'll get what you expect.</p>
+      </div>
+    </div>
+    
+    <div class="col-md-4">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-headset"></i>
+        </div>
+        <h4>24/7 Support</h4>
+        <p class="text-muted">Our dedicated support team is available around the clock to help you with any questions or concerns.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Stats Section -->
+<div class="stats-section">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-3">
+        <div class="stat-number">1000+</div>
+        <p class="text-muted">Properties Listed</p>
+      </div>
+      <div class="col-md-3">
+        <div class="stat-number">50+</div>
+        <p class="text-muted">Countries</p>
+      </div>
+      <div class="col-md-3">
+        <div class="stat-number">10K+</div>
+        <p class="text-muted">Happy Guests</p>
+      </div>
+      <div class="col-md-3">
+        <div class="stat-number">4.8★</div>
+        <p class="text-muted">Average Rating</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Popular Destinations -->
+<div class="container my-5">
+  <div class="row text-center mb-5">
+    <div class="col-12">
+      <h2 class="display-4 mb-3">Popular Destinations</h2>
+      <p class="lead text-muted">Discover the most loved places by our community</p>
+    </div>
+  </div>
+  
+  <div class="row g-4">
+    <div class="col-md-6 col-lg-3">
+      <div class="card border-0 shadow-sm">
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" class="card-img-top" style="height: 200px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title">Mountain Retreats</h5>
+          <p class="card-text text-muted">Escape to serene mountain locations</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3">
+      <div class="card border-0 shadow-sm">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" class="card-img-top" style="height: 200px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title">Beach Houses</h5>
+          <p class="card-text text-muted">Relax by the ocean waves</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3">
+      <div class="card border-0 shadow-sm">
+        <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" class="card-img-top" style="height: 200px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title">City Apartments</h5>
+          <p class="card-text text-muted">Urban living at its finest</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3">
+      <div class="card border-0 shadow-sm">
+        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60" class="card-img-top" style="height: 200px; object-fit: cover;">
+        <div class="card-body">
+          <h5 class="card-title">Luxury Resorts</h5>
+          <p class="card-text text-muted">Premium comfort and service</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Call to Action -->
+<div class="cta-section">
+  <div class="container">
+    <h2 class="display-4 mb-3">Ready to Start Your Journey?</h2>
+    <p class="lead mb-4">Join thousands of travelers who have found their perfect stay with us</p>
+    <div class="d-flex gap-3 justify-content-center">
+      <a href="/listings" class="btn btn-light btn-lg px-4">
+        <i class="fas fa-search me-2"></i>Browse Listings
+      </a>
+      <% if (typeof currUser === 'undefined' || !currUser) { %>
+      <a href="/signup" class="btn btn-outline-light btn-lg px-4">
+        <i class="fas fa-user-plus me-2"></i>Sign Up Free
+      </a>
+      <% } else { %>
+      <a href="/listings/new" class="btn btn-outline-light btn-lg px-4">
+        <i class="fas fa-plus me-2"></i>List Your Property
+      </a>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<!-- How It Works Section -->
+<div class="container my-5">
+  <div class="row text-center mb-5">
+    <div class="col-12">
+      <h2 class="display-4 mb-3">How It Works</h2>
+      <p class="lead text-muted">Getting started is easy and takes just a few minutes</p>
+    </div>
+  </div>
+  
+  <div class="row g-4">
+    <div class="col-md-4 text-center">
+      <div class="mb-3">
+        <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+          <span class="fs-2 fw-bold">1</span>
+        </div>
+      </div>
+      <h4>Search & Discover</h4>
+      <p class="text-muted">Browse through our curated collection of properties using our interactive map feature.</p>
+    </div>
+    
+    <div class="col-md-4 text-center">
+      <div class="mb-3">
+        <div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+          <span class="fs-2 fw-bold">2</span>
+        </div>
+      </div>
+      <h4>Book Instantly</h4>
+      <p class="text-muted">Found the perfect place? Book instantly with our secure and simple booking process.</p>
+    </div>
+    
+    <div class="col-md-4 text-center">
+      <div class="mb-3">
+        <div class="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+          <span class="fs-2 fw-bold">3</span>
+        </div>
+      </div>
+      <h4>Enjoy Your Stay</h4>
+      <p class="text-muted">Relax and enjoy your perfect getaway. Leave a review to help future travelers.</p>
+    </div>
+  </div>
+</div>
