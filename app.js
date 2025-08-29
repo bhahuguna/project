@@ -43,13 +43,26 @@ if (!dburl) {
     console.log("App will continue running but database features won't work");
 } else {
     console.log("Attempting to connect to database...");
-    main()
+    console.log("Database URL (masked):", dburl.replace(/\/\/.*@/, '//***:***@'));
+
+    // Set a timeout for database connection
+    const connectWithTimeout = () => {
+        return Promise.race([
+            main(),
+            new Promise((_, reject) =>
+                setTimeout(() => reject(new Error('Database connection timeout after 10 seconds')), 10000)
+            )
+        ]);
+    };
+
+    connectWithTimeout()
     .then(()=>{
         console.log("✅ Connected to database successfully");
     })
     .catch(err=>{
         console.log("❌ Database connection error:", err.message);
         console.log("App will continue running but database features won't work");
+        console.log("This is normal for the first deployment - you can add data later");
     });
 }
 
@@ -64,24 +77,31 @@ app.use(methodoverride("_method"))
 app.engine('ejs',ejsMate)
 app.use(express.static(path.join(__dirname,"/public")))
 
-// Create session store - use memory store if no database URL
+// Create session store - use memory store if no database URL or connection fails
 let store;
-if (dburl) {
-    store = MongoStore.create({
-        mongoUrl: dburl,
-        crypto: {
-            secret: process.env.SECRET || "fallback-secret-key",
-        },
-        touchAfter: 24*3600,
-    });
-} else {
-    // Use memory store as fallback (not recommended for production)
-    console.log("Using memory store for sessions (not recommended for production)");
+try {
+    if (dburl) {
+        console.log("Creating MongoDB session store...");
+        store = MongoStore.create({
+            mongoUrl: dburl,
+            crypto: {
+                secret: process.env.SECRET || "fallback-secret-key",
+            },
+            touchAfter: 24*3600,
+        });
+        console.log("MongoDB session store created");
+    } else {
+        throw new Error("No database URL provided");
+    }
+} catch (error) {
+    // Use memory store as fallback
+    console.log("Using memory store for sessions:", error.message);
     store = new session.MemoryStore();
 }
 
-store.on("error",()=>{
-    console.log("Error in Mongo Store",err);
+store.on("error",(err)=>{
+    console.log("Error in session store:",err.message);
+    console.log("Sessions may not persist properly");
 })
 
 const sessionOptions={
@@ -131,6 +151,16 @@ app.use((req,res,next)=>{
 
 
 
+
+// Health check route
+app.get("/health", (req, res) => {
+    res.json({
+        status: "OK",
+        message: "Server is running",
+        database: dburl ? "Configured" : "Not configured",
+        timestamp: new Date().toISOString()
+    });
+});
 
 app.use("/listings",listingsRouter);
 
